@@ -1,13 +1,12 @@
 import pyautogui as py
-import pandas
+import pandas as pd
 from time import sleep
 
 # Passo 1 - Abrir o sistema da empresa
 py.PAUSE = 5
-py.press('win')
-py.write('OPERA GX')
-py.press('enter')
-sleep(10)
+
+py.click(x=778, y=747)
+py.click(x=1157, y=12)
 py.write('https://dlp.hashtagtreinamentos.com/python/intensivao/login')
 py.press('enter')
 
@@ -21,7 +20,7 @@ py.press('tab')
 py.press('enter')
 
 # Passo 3 - Importar a base de dados dos produtos
-tabela=pandas.read_csv('produtos.csv')
+tabela=pd.read_csv('produtos.csv')
 sleep(10)
 
 # Passo 4 - Cadastrar um produto
@@ -53,12 +52,11 @@ for linha in tabela.index:
     py.press('tab')
 
     obs=tabela.loc[linha,'obs']
-    if obs !='nan':
-        py.write(str(obs))
+    if not pd.isna(obs):
+        py.write(str(tabela.loc[linha,'obs']))
     py.press('tab')
 
     py.press('enter')
-    py.scroll(1000000)
-
+    py.scroll(5000)
 
 # Passo 5 - Repetir o passo 4 até acabar todos os produtos
